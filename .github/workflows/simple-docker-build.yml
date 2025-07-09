@@ -38,8 +38,9 @@ jobs:
 
       - name: Build Docker Image
         run: |
-         - name: Build Docker Image
-         docker build -f src/accounting/Dockerfile -t test-image:v1 .
+            docker build -t yourdockerusername/vaishalitelemetry:v1 \
+             --file src/accounting/Dockerfile .
+
 
 
 
