@@ -18,13 +18,14 @@ jobs:
 
       - name: Build and push all services with Dockerfile
         run: |
-          for dir in ./src/*; do
-            if [ -f "$dir/Dockerfile" ]; then
-              service=$(basename "$dir")
-              echo "Building $service..."
-              docker build -t ${{ secrets.DOCKER_REGISTRY }}/otel/$service:${{ github.sha }} $dir
-              docker push ${{ secrets.DOCKER_REGISTRY }}/otel/$service:${{ github.sha }}
-            else
-              echo "Skipping $(basename "$dir") (no Dockerfile)"
-            fi
-          done
+         for dir in ./src/*; do
+         if [ -f "$dir/Dockerfile" ]; then
+         service=$(basename "$dir")
+          echo "Building $service..."
+          docker build -t ${{ secrets.DOCKER_REGISTRY }}/otel/$service:${{ github.sha }} . --file $dir/Dockerfile
+          docker push ${{ secrets.DOCKER_REGISTRY }}/otel/$service:${{ github.sha }}
+          else
+          echo "Skipping $(basename "$dir") (no Dockerfile)"
+          fi
+         done
+
